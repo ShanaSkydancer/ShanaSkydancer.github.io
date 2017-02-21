@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+
+<script type="text/javascript">
+
+var colour="#ff00f0";
+var sparkles=120;
+
+var x=ox=400;
+var y=oy=300;
+var swide=800;
+var shigh=600;
+var sleft=sdown=0;
+var tiny=new Array();
+var star=new Array();
+var starv=new Array();
+var starx=new Array();
+var stary=new Array();
+var tinyx=new Array();
+var tinyy=new Array();
+var tinyv=new Array();
+
+window.onload=function() { if (document.getElementById) {
+  var i, rats, rlef, rdow;
+  for (var i=0; i<sparkles; i++) {
+    var rats=createDiv(3, 3);
+    rats.style.visibility="hidden";
+    document.body.appendChild(tiny[i]=rats);
+    starv[i]=0;
+    tinyv[i]=0;
+    var rats=createDiv(5, 5);
+    rats.style.backgroundColor="transparent";
+    rats.style.visibility="hidden";
+    var rlef=createDiv(1, 5);
+    var rdow=createDiv(5, 1);
+    rats.appendChild(rlef);
+    rats.appendChild(rdow);
+    rlef.style.top="2px";
+    rlef.style.left="0px";
+    rdow.style.top="0px";
+    rdow.style.left="2px";
+    document.body.appendChild(star[i]=rats);
+  }
+  set_width();
+  sparkle();
+}}
+
+function sparkle() {
+  var c;
+  if (x!=ox || y!=oy) {
+    ox=x;
+    oy=y;
+    for (c=0; c<sparkles; c++) if (!starv[c]) {
+      star[c].style.left=(starx[c]=x)+"px";
+      star[c].style.top=(stary[c]=y)+"px";
+      star[c].style.clip="rect(0px, 5px, 5px, 0px)";
+      star[c].style.visibility="visible";
+      starv[c]=50;
+      break;
+    }
+  }
+  for (c=0; c<sparkles; c++) {
+    if (starv[c]) update_star(c);
+    if (tinyv[c]) update_tiny(c);
+  }
+  setTimeout("sparkle()", 40);
+}
+
+function update_star(i) {
+  if (--starv[i]==25) star[i].style.clip="rect(1px, 4px, 4px, 1px)";
+  if (starv[i]) {
+    stary[i]+=1+Math.random()*3;
+    if (stary[i]<shigh+sdown) {
+      star[i].style.top=stary[i]+"px";
+      starx[i]+=(i%5-2)/5;
+      star[i].style.left=starx[i]+"px";
+    }
+    else {
+      star[i].style.visibility="hidden";
+      starv[i]=0;
+      return;
+    }
+  }
+  else {
+    tinyv[i]=50;
+    tiny[i].style.top=(tinyy[i]=stary[i])+"px";
+    tiny[i].style.left=(tinyx[i]=starx[i])+"px";
+    tiny[i].style.width="2px";
+    tiny[i].style.height="2px";
+    star[i].style.visibility="hidden";
+    tiny[i].style.visibility="visible"
+  }
+}
+
+function update_tiny(i) {
+  if (--tinyv[i]==25) {
+    tiny[i].style.width="1px";
+    tiny[i].style.height="1px";
+  }
+  if (tinyv[i]) {
+    tinyy[i]+=1+Math.random()*3;
+    if (tinyy[i]<shigh+sdown) {
+      tiny[i].style.top=tinyy[i]+"px";
+      tinyx[i]+=(i%5-2)/5;
+      tiny[i].style.left=tinyx[i]+"px";
+    }
+    else {
+      tiny[i].style.visibility="hidden";
+      tinyv[i]=0;
+      return;
+    }
+  }
+  else tiny[i].style.visibility="hidden";
+}
+
+document.onmousemove=mouse;
+function mouse(e) {
+  set_scroll();
+  y=(e)?e.pageY:event.y+sdown;
+  x=(e)?e.pageX:event.x+sleft;
+}
+
+function set_scroll() {
+  if (typeof(self.pageYOffset)=="number") {
+    sdown=self.pageYOffset;
+    sleft=self.pageXOffset;
+  }
+  else if (document.body.scrollTop || document.body.scrollLeft) {
+    sdown=document.body.scrollTop;
+    sleft=document.body.scrollLeft;
+  }
+  else if (document.documentElement && (document.documentElement.scrollTop || document.documentElement.scrollLeft)) {
+    sleft=document.documentElement.scrollLeft;
+	sdown=document.documentElement.scrollTop;
+  }
+  else {
+    sdown=0;
+    sleft=0;
+  }
+}
+
+window.onresize=set_width;
+function set_width() {
+  if (typeof(self.innerWidth)=="number") {
+    swide=self.innerWidth;
+    shigh=self.innerHeight;
+  }
+  else if (document.documentElement && document.documentElement.clientWidth) {
+    swide=document.documentElement.clientWidth;
+    shigh=document.documentElement.clientHeight;
+  }
+  else if (document.body.clientWidth) {
+    swide=document.body.clientWidth;
+    shigh=document.body.clientHeight;
+  }
+}
+
+function createDiv(height, width) {
+  var div=document.createElement("div");
+  div.style.position="absolute";
+  div.style.height=height+"px";
+  div.style.width=width+"px";
+  div.style.overflow="hidden";
+  div.style.backgroundColor=colour;
+  return (div);
+}
+// ]]>
+</script>
+
+<!-- End of spakle mouse!! -->
+
+<head>
+  <title>Charne's Web Page</title>
+      <link href="Webpage.css" type="text/css" rel="stylesheet">
+</head>
+
+<body>
+  <div class = "Header">
+    <h1> Charné <br> Banger </h1>
+    <img src="images/DSC_0162_1.JPG" class="Table-Mountain-Image">
+  </div>
+
+  <h2> Which city? </h2>
+  <div class = "city_header">
+    <img src= "images/Mount-Fuji-Tokyo-Japan-Cherry-Blossoms.jpg" class="Tokyo-Japan">
+      <p>Definetely Tokyo, Japan! I have always been interested in the Japanese culture. From the way they dress to their festivals and beautiful city, I've always wanted to visit Tokyo!</p>
+    </div>
+<br>
+  <div class="language">
+    <h3> A foreign language </h3>
+    <p> Portuguese. The only real reason is because Sandro's father's side is Portugues and just like he grew up learning Portuguese and speaking it to his father's side of the family, I want to be able to speak to him in Portuguese and also be able to one day teach our children to speak Portuguese. </p>
+    <table>
+      <tr>
+        <thead>
+          <th>English</th>
+          <th>Portuguese</th>
+      </tr>
+        </thead>
+    <tbody>
+      <tr>
+        <td>"Hello my name is Charné."</td>
+        <td>"Olá, meu nome é Charné."</td>
+      </tr>
+      <tr>
+        <td>"I would like to learn to speak Portuguese."</td>
+        <td>"Gostaria de aprender a falar Português."</td>
+      </tr>
+      <tr>
+        <td>"My favourite animal is a cat."</td>
+        <td>"Meu animal favorito é um gato."</td>
+      </tr>
+      <tr>
+        <td>"Spring is my favourite season."</td>
+        <td>"A primavera é a minha estação favorita."</td>
+      </tr>
+      <tr>
+        <td>"I want to travel the world!"</td>
+        <td>"Eu quero viajar o mundo!"</td>
+      </tr>
+    </tbody>
+    </table>
+  </div>
+
+  <h4> Historical places in the V and A Waterfront </h4>
+  <div class="Historical">
+
+    <div class = "ClockTower">
+        <img src= "images/DSC_0386.JPG" class="AlignRightImg">
+    <ul class = "AlignRight">
+      <p id= "ClockTitle">Clock Tower</p>
+      <li>The Clock Tower has an old tidal-gauge mechanism on the bottom floor, which was used to check tide levels.</li>
+      <li>The clock mechanism can be found on the top floor and thanks to the restoration of this national monument in 1997, the original clock is still in use today.</li>
+      <li>The Clock Tower is the symbol of Cape Town’s seafaring history.</li>
+    </ul>
+  </div>
+
+  <div class= "SwingBridge">
+      <img src= "images/DSC_0392.JPG" class="MeAndBridge">
+      <ul>
+        <p>Swing Bridge</p>
+        <li>The Swing Bridge controls the opening of the blue Bascule Bridge.</li>
+        <li>The Swing Bridge was designed and constructed in 1997.</li>
+        <li>The V and A Marina is accessed from Granger Bay through the Victoria and the Alfred Basins under the Swing Bridge.</li>
+      </ul>
+    </div>
+
+  <div class="CastleBuilding">
+      <img src= "images/DSC_0396.JPG" class="AlignRightImg">
+      <ul class = "AlignRight">
+        <p>Union Castle Building</p>
+        <li>Castle Building designed in 1919 by the firm of architects owned by Sir Herbert Baker.</li>
+        <li>The Union Steamship Company and the Castle Line both ran monthly mail ships between Britain and South Africa in the late 19th century.</li>
+    <li>The last Union Castle ship to sail to England with the mail was the Windsor Castle in 1977.</li>
+  </ul>
+  </div>
+</div>
+
+  <p>Made by Charné Banger<p>
+  <a href="https://github.com/ShanaSkydancer"> GitHub</a>
+<br>
+  <a href="https://twitter.com/Shana_Skydancer"> Titter</a>
+</br>
+
+</body>
+
+ </html>
